@@ -1,0 +1,115 @@
+<html>
+<head>
+<script>
+	
+	function showhide(str) {
+	
+	if(str == 'byAttendeeList'){
+		if (document.all) { //IS IE 4.0 or less
+			eval( "document.all.ByAttendeeeDiv.style.display = 'block'"); 
+			eval( "document.all.ByFriendDiv.style.display = 'none'"); 
+		} 
+		if (document.layers) { //IS NETSCAPE 
+			document.layers[ByAttendeeeDiv].display = 'block'; 
+			document.layers[ByFriendDiv].display = 'none'; 
+		} 
+		//if (document.getElementById &&!document.all) { 
+		else{	
+			hza = document.getElementById(ByAttendeeeDiv); 
+			hza.style.display = 'block'; 
+			hzb = document.getElementById(ByFriendDiv); 
+			hzb.style.display = 'none'; 
+		} 
+	} 
+	else{
+		if (document.all) { //IS IE 4.0 or less
+			eval( "document.all.ByFriendDiv.style.display = 'block'"); 
+			eval( "document.all.ByAttendeeeDiv.style.display = 'none'"); 
+		} 
+		if (document.layers) { //IS NETSCAPE 
+			document.layers[ByFriendDiv].display = 'block';
+			document.layers[ByAttendeeeDiv].display = 'none';  
+		} 
+		else { 
+			hza = document.getElementById(ByFriendDiv); 
+			hza.style.display = 'block'; 
+			hzb = document.getElementById(ByAttendeeeDiv); 
+			hzb.style.display = 'none'; 
+		} 
+	}
+} //showhide
+
+	
+	
+	
+	function checkEmail(str)
+	{
+		if(str != null)
+			{
+				if(str.substr(str.length-10, 10)== "@gmail.com")
+				{
+					xmlhttp = new XMLHttpRequest();
+					xmlhttp.onreadystatechange=function() //called by AJAX 
+					{
+						if (xmlhttp.readyState==4 && xmlhttp.status==200)
+					    {
+					    	if(xmlhttp.responseText.length !=0)
+					    	{
+								document.getElementById("idFriendEmail").style.color="red";
+					    	}
+					    }
+					}
+					xmlhttp.open("GET","/ledgergoogle?q="+str,true);
+					xmlhttp.send();
+				}
+		}
+		else
+		{
+			document.getElementById("idFriendEmail").style.color="";
+		}
+	}
+	
+</script>
+</head>
+
+<body>
+
+<p>Welcome<br> 
+</p>
+<table border = "1" style="height:100% ; width:100% ">
+	<tr>
+		<td style=" width:30% ;text-align: left; vertical-align: top"> Menu </td>
+		<td style="text-align: left; vertical-align: top"> Welcome <br><br>
+		
+		<input type="radio" name="user_activity_type" id = "by_attendee" value="byAttendeeList" onclick = "showhide('byAttendeeList');"/>Add by Attendee list<br>
+		<input type="radio" name="user_activity_type" id = "by_friend" value="byFriend" onclick = "showhide('byFriend');"/>Add by Friends<br>
+		
+		<div id='ByAttendeeeDiv' style="display: none;"> 
+			Select Attendee List : 
+			<=% 
+			
+			
+			
+			
+			%>
+			
+			<form action="index.html" method="post">
+			Email Id    : <input type="text" id = "idFriendEmail" name="friendEmail" size = "50" onblur="checkEmail(this.value)"><br>
+			Friend Name : <input type = "text" name="friendName" size ="50"><br>
+			Contact no  : <input type="text" name = "friendContact" size = "50"><br>
+			<input type="submit" value = "Cheers" onClick="validateForm()">
+			</form>
+		</div>
+		<div id='ByFriendDiv' style="display: none;"> 
+			<form action = "index" method="post">
+			Enter Email Id : <input type = "text" name="idFriendEmail_mod" size ="20"><br>
+			Friend Name : <input type = "text" name="friendName_mod" size ="20"><br>
+			Friend Contact : <input type = "text" name="friendContact_mod" size ="20"><br>
+			<input type="submit">
+			</form>
+		</div>	
+		</td>
+	</tr>
+</table>
+</body>
+</html>

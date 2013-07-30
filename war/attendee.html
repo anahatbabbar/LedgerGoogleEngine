@@ -1,0 +1,72 @@
+<html>
+<head>
+<script>
+
+	function showhide(str) {
+	
+		if(str == 'add_create'){
+			if (document.all) { //IS IE 4.0 or less
+				eval( "document.all.addCreateDiv.style.display = 'block'"); 
+				eval( "document.all.modifyDiv.style.display = 'none'"); 
+			} 
+			if (document.layers) { //IS NETSCAPE 
+				document.layers[addCreateDiv].display = 'block'; 
+				document.layers[modifyDiv].display = 'none'; 
+			} 
+			//if (document.getElementById &&!document.all) { 
+			else{	
+				hza = document.getElementById(addCreateDiv); 
+				hza.style.display = 'block'; 
+				hzb = document.getElementById(modifyDiv); 
+				hzb.style.display = 'none'; 
+			} 
+		} 
+		else{
+			if (document.all) { //IS IE 4.0 or less
+				eval( "document.all.modifyDiv.style.display = 'block'"); 
+				eval( "document.all.addCreateDiv.style.display = 'none'"); 
+			} 
+			if (document.layers) { //IS NETSCAPE 
+				document.layers[modifyDiv].display = 'block';
+				document.layers[addCreateDiv].display = 'none';  
+			} 
+			else { 
+				hza = document.getElementById(modifyDiv); 
+				hza.style.display = 'block'; 
+				hzb = document.getElementById(addCreateDiv); 
+				hzb.style.display = 'none'; 
+			} 
+		}
+	} //showhide
+		
+</script>
+</head>
+
+<body>
+
+<p>Welcome<br> 
+</p>
+<table border = "1" style="height:100% ; width:100% ">
+	<tr>
+		<td style=" width:30% ;text-align: left; vertical-align: top"> Menu </td>
+		<td style="text-align: left; vertical-align: top"> Welcome <br><br>
+		
+		<input type="radio" name="user_activity_type" id = "add_create" value="add_create" onclick = "showhide('add_create');"/>Add/Create Attendee List<br>
+		<input type="radio" name="user_activity_type" id = "modify" value="modify" onclick = "showhide('modify');"/>Modify Attendee List<br>
+		
+		<div id='addCreateDiv' style="display: none;"> You selected Create/Add<br>
+		<form action="/addFriendsToAttendee.jsp" method="post">
+		Attendee List Name : <input type = "text" name="attendeeListName" size ="20"><br>
+		No of Friends to be added : <input type = "text" name="attendeeNoOfFriends" size ="2"><br>
+		<input type="submit"/>
+		</form>
+		</div>
+		<div id='modifyDiv' style="display: none;">This page is under Construction !! Please create a new attendee List .....<br>
+		Choose Attendee List : <input type = "text" name="abc" size ="30" readonly ="readonly"/><br>
+		</div>	
+		</td>
+		
+	</tr>
+</table>
+</body>
+</html>
